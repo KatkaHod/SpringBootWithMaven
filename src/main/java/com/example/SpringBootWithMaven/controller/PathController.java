@@ -71,12 +71,13 @@ public class PathController {
     @GetMapping("v6/employee/{id}/{country}")
     public String getEmployeeInMap(
             @PathVariable Map<String,String> pathVariables
-
     ) {
         String id = pathVariables.get("id");
         String country = pathVariables.get("country");
-        return findEmployeeById(Long.parseLong(id).concat(" ").concat(findCountry(country)));
-        //return pathVariables.toString();
+
+        return findEmployeeById(Long.parseLong(pathVariables.get("id")))
+                .concat(" ")
+                .concat(findCountry(pathVariables.get("country")));
     }
 
 
