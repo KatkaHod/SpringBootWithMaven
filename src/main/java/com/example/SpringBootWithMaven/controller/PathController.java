@@ -68,10 +68,12 @@ public class PathController {
         return answerId.concat(" ").concat(answerCountry);
     }
 
+    //localhost:8080/path/v6/employee/2/DE
     @GetMapping("v6/employee/{id}/{country}")
     public String getEmployeeInMap(
             @PathVariable Map<String,String> pathVariables
     ) {
+        //Getting values from the map:
         String id = pathVariables.get("id");
         String country = pathVariables.get("country");
 
@@ -79,6 +81,22 @@ public class PathController {
                 .concat(" ")
                 .concat(findCountry(pathVariables.get("country")));
     }
+
+
+    //the parameter is not mandatory
+    @GetMapping(value = {
+            "v7/employee",
+            "v7/employee/{id}"
+            }
+            )
+    public String getEmployeeIdNotRequired(
+            @PathVariable(value = "id", required = false) String employeeId
+    ){
+       return findEmployeeById(
+               Long.parseLong(employeeId)
+       );
+    }
+
 
 
 
