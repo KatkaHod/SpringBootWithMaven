@@ -92,9 +92,11 @@ public class PathController {
     public String getEmployeeIdNotRequired(
             @PathVariable(value = "id", required = false) String employeeId
     ){
-       return findEmployeeById(
-               Long.parseLong(employeeId)
-       );
+        if (employeeId == null || employeeId.isEmpty()) {
+            return "The ID is not provided";
+        }
+        return employeeId;
+
     }
 
 
