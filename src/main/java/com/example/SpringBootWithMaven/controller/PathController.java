@@ -37,13 +37,25 @@ public class PathController {
     }
 
 
+    /**
+     * Handles GET requests to retrieve the name of a default employee.
+     * - The endpoint "/v1/employee" returns employee details for a hardcoded user ID (1).
+     * - Always returns the information for the employee with ID 1.
+     */
+
     @GetMapping("v1/employee")
     public String getEmployeeName() {
         return findEmployeeById(1L);
     }
 
+    /**
+     * Handles GET requests to retrieve employee information by user ID.
+     * - The endpoint "/v2/employee/{userId}" takes "userId" as a path variable.
+     * - Returns employee details for the given user ID.
+     * - Example URLs: "localhost:8080/path/v2/employee/1" or "localhost:8080/path/v2/employee/2".
+     * - localhost:8080/path/v2/employee/1 or localhost:8080/path/v2/employee/2
+     */
 
-    //try with localhost:8080/path/v2/employee/1 or localhost:8080/path/v2/employee/2
     @GetMapping("v2/employee/{userId}")
     public String getEmployeeById(@PathVariable Long userId) {
         return findEmployeeById(userId);
@@ -55,7 +67,13 @@ public class PathController {
         return findEmployeeById(Long.parseLong(thisIsTheIdFromUser));
     }
 
-    //two input parameters
+    /**
+     * Handles GET requests to retrieve employee information based on ID and country.
+     * - The endpoint "/v5/employee/{id}/{country}" takes "id" and "country" as path variables.
+     * - Retrieves the employee details using the provided ID and country.
+     * - Returns a concatenated string with the employee information and the country.
+     */
+
     @GetMapping ("v5/employee/{id}/{country}")
     public String getEmployeeByIdAndCountry (
             @PathVariable(value = "id") Long userId,
@@ -68,7 +86,17 @@ public class PathController {
         return answerId.concat(" ").concat(answerCountry);
     }
 
-    //localhost:8080/path/v6/employee/2/DE
+
+    /**
+     * Handles GET requests for retrieving employee information based on ID and country.
+     * - The endpoint "/v6/employee/{id}/{country}" maps both "id" and "country" as path variables.
+     * - Path variables are stored in a Map, allowing dynamic access to their values.
+     * - Retrieves the employee ID and country from the Map and uses these values to find and return
+     *   employee information combined with the corresponding country.
+     *
+     *   localhost:8080/path/v6/employee/2/DE
+     */
+
     @GetMapping("v6/employee/{id}/{country}")
     public String getEmployeeInMap(
             @PathVariable Map<String,String> pathVariables
@@ -82,8 +110,13 @@ public class PathController {
                 .concat(findCountry(pathVariables.get("country")));
     }
 
+    /**
+     * Handles GET requests for retrieving an employee ID.
+     * - Supports two endpoints: "/v7/employee" and "/v7/employee/{id}".
+     * - If the ID is not provided in the URL, returns a message indicating that the ID is not provided.
+     * - If the ID is provided, returns the given ID.
+     */
 
-    //the parameter is not mandatory
     @GetMapping(value = {
             "v7/employee",
             "v7/employee/{id}"
@@ -98,10 +131,6 @@ public class PathController {
         return employeeId;
 
     }
-
-
-
-
 
 
 
