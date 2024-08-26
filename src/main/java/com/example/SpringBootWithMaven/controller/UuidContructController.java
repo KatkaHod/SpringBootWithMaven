@@ -7,18 +7,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
-@RestController
-@RequestMapping("uuid")
 
-public class UuidController {
-    //no need to create a new instance -> use autowired
-    @Autowired
-    private UuidGenerator generate;
+@RestController
+@RequestMapping("v2")
+public class UuidContructController {
+
+    //a safer way to use @Autowired
+    UuidGenerator generate;
+
+    public UuidContructController(
+            @Autowired UuidGenerator uuidGenerator
+    ){
+        this.generate = uuidGenerator;
+    }
 
     @GetMapping("uuid")
     public UUID generatedUuid(){
         return  generate.generateUuid();
     }
-
-
 }
