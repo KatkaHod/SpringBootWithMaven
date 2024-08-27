@@ -1,6 +1,7 @@
 package com.example.SpringBootWithMaven.controller;
 
 import com.example.SpringBootWithMaven.model.LogIn;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +14,9 @@ import java.util.Optional;
 
 public class LoginController {
 
-    private final String DEFAULT_PASSWORD = "Kth762*";
+    @Value("${company.default.pw}")
+    private String DEFAULT_PASSWORD;
+
     private boolean checkPassword(String userPassword){
         return userPassword.equals(DEFAULT_PASSWORD);
     }
